@@ -1,0 +1,26 @@
+#!/bin/bash
+#SBATCH --partition=normal            # Run on Test Partition
+#SBATCH --job-name=Gamma_SS_test             # Job name
+#SBATCH --output=log_%j.log        # Standard output and error log
+#SBATCH --nodes=1                       # # of nodes
+#SBATCH --mem=250gb                       # Job memory request
+#SBATCH --time=5-00:00:00                 # Time limit hrs:min:sec
+#SBATCH --ntasks=1                     # Run on a single CPU
+#SBATCH --mail-type=BEGIN,END,FAIL            # Mail events (NONE, BEGIN, END, FAIL, ALL)
+#SBATCH --mail-user=<hrishabh.khakurel@uta.edu>    # Where to send mail	
+#--- end of options to batch
+pwd; hostname; date
+
+# Clear the environment from any previously loaded modules
+module purge > /dev/null 2>&1
+
+module load intel/20.0.1.217
+module load R/3.6.2
+
+echo "Running R"
+
+srun Rscript Gamma_SS.R
+# to submit this, type the following at the command line:
+# sbatch <filename>
+
+date
